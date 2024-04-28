@@ -1,0 +1,91 @@
+<div class="container card p-3 mb-4">
+
+  <div class="row">
+      <div class="col-md-6">
+          <div class="heading">Products History</div>
+      </div>
+      <div class="col-md-6">
+        <div class="button">
+            <button class="btn btn-dark" (click)="back()">
+              <i class="fa fa-arrow-left"></i>&nbsp;
+              Back
+            </button>
+        </div>
+      </div>
+  </div>
+
+    <div class="row">
+      <div class="col-md-12" style="max-height: 450px; overflow: auto" *ngIf="FinalProductsHistory">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="text-center">Product ID</th>
+              <th class="text-center">Product Name</th>
+              <th class="text-center">Price</th>
+              <th class="text-center">Date</th>
+              <th class="text-center">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let group of FinalProductsHistory | keyvalue">
+              <tr *ngFor="let data of group.value">
+                <td class="text-center">{{data.Id}}</td>
+                <td class="text-left">
+                  <img
+                    [src]="data.image" class="me-2" style="width: 30px"
+                  />&nbsp;&nbsp;{{data.title}}
+                </td>
+                <td class="text-center">₹{{ data?.price | number: '1.0-0'}}/-</td>
+                <td class="text-center">{{ data.time | date }}</td>
+                <td class="text-center">
+                  <div class="status">
+                    <div class="label label-success" style="padding:5px 10px;"
+                    [ngStyle]="{'background-color':getStatus(data.Status)}">
+                    {{data.Status}}
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-md-12" *ngIf="!FinalProductsHistory">
+          <div class="status">
+            <div class="img">
+              <img class="img" src="../../../assets/images/NoData.png" style="width: 300px;">
+            </div>
+          </div>
+      </div>
+
+      <div class="col-md-12" *ngIf="FinalProductsHistory">
+        <div class="d-flex p-2">
+
+         <div class="dropdown" style="width: auto;">
+          <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshCountries()">
+            <option *ngFor="let page of pageLen" [ngValue]="page" selected>{{page}}</option>
+          </select>
+         </div>
+
+         <div class="dropdown text">
+            <span>&nbsp; Items per Page</span>
+         </div>
+
+          <div class="navigation">
+            <ngb-pagination [collectionSize]="collectionSize"
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [rotate]="true"
+            [maxSize]="3"
+            (pageChange)="refreshCountries()">
+            <!---->
+            </ngb-pagination>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+</div>

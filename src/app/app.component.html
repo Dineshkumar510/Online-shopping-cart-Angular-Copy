@@ -1,0 +1,6 @@
+<app-navbar></app-navbar>
+<router-outlet></router-outlet>
+<app-profile *ngIf="isProfile()"></app-profile>
+<app-product-history *ngIf="isHistory()"></app-product-history>
+<app-razor-payment *ngIf="isPaymentRoute()"></app-razor-payment>
+<ng-toast></ng-toast>

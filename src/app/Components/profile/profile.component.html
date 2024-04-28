@@ -1,0 +1,110 @@
+<div class="container rounded bg-white mb-5">
+  <div class="row">
+      <div class="col-md-4">
+          <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+
+            <label class="hoverable">
+              <img [src]="url ? url : '../../../../../assets/images/Profile-men.jpg'">
+              <label class="btn btn-secondary hover-text" for="fileInput">
+               <i class="fa fa-camera"></i>&nbsp; Edit Profile
+              </label>
+              <div class="background"></div>
+            </label>
+            <input id="fileInput" type='file' (change)="onSelectFile($event)">
+
+            <div class="profile-name mt-3" style="display: inline-grid;">
+            <h4 class="font-weight-bold">Katherine Cooper</h4>
+            <span class="text-black-50">@probablykat66</span>
+            </div>
+
+            <div class="product-history mt-3">
+                <button class="btn btn-primary" (click)="redirect()">
+                  <i class="fa fa-shopping-cart"></i>&nbsp;
+                  Products History
+                </button>
+            </div>
+          </div>
+      </div>
+      <div class="col-md-8">
+          <div class="p-3 py-5">
+
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h4 class="text-right">Profile Settings</h4>
+              </div>
+
+         <div class="form-group required">
+
+                <div class="row mt-2">
+                  <div class="col-md-6">
+                    <label class="labels">Name</label>
+                    <input type="text" class="form-control" placeholder="First name" value="" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="labels">Surname</label>
+                    <input type="text" class="form-control" value="" placeholder="Surname">
+                  </div>
+              </div>
+
+              <div class="row mt-3">
+
+                  <div class="col-md-6">
+                    <label class="labels">Mobile Number</label>
+                    <input type="text" class="form-control" placeholder="Enter phone number" value="">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="labels">Email ID</label>
+                    <input type="text" class="form-control" placeholder="Enter email id" value="">
+                  </div>
+
+                        <div class="col-md-12 mt-2">
+                          <label class="labels">Address Line 1</label>
+                          <textarea type="text" class="form-control" placeholder="Enter address line 1" value=""></textarea>
+                        </div>
+
+                        <div class="col-md-12 mt-2">
+                          <label class="labels">Address Line 2</label>
+                          <textarea type="text" class="form-control" placeholder="Enter address line 2" value=""></textarea>
+                        </div>
+
+                  <div class="col-md-6 mt-2">
+                    <label class="labels">Postcode</label>
+                    <input type="text" class="form-control" placeholder="postcode" value="">
+                  </div>
+
+
+              </div>
+
+              <div class="row mt-3">
+                  <div class="col-md-6">
+                    <label class="labels">State/Region</label>
+                    <select class="form-select" aria-label="Default select example">
+                      <option selected>Open this select menu</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="labels">Country</label>
+                    <select class="form-select" aria-label="Default select example">
+                      <option selected>Open this select menu</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+
+              </div>
+
+              <div class="mt-4 text-left" style="display: flex; justify-content: end;">
+                <button class="btn btn-outline-success" type="button"
+                style="margin-right: 10px;">Save Profile</button>
+                <button class="btn btn-outline-danger" type="button" (click)="back()">Cancel</button>
+              </div>
+         </div>
+
+          </div>
+      </div>
+  </div>
+</div>

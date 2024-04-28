@@ -1,0 +1,6 @@
+{
+  "/api": {
+    "target": "https://angular---online-shopping-kart-default-rtdb.asia-southeast1.firebasedatabase.app/data.json",
+    "secure": false
+  }
+}

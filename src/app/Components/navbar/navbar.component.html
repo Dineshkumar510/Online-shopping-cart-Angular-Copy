@@ -1,0 +1,152 @@
+<nav class="navbar navbar-expand-lg bg-dark">
+  <div class="container-fluid">
+
+    <a class="navbar-brand" routerLink=""><i class="fa-solid fa-bag-shopping"></i> Shopping Mart</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav" style="justify-content: start;">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link white" routerLink="/products">All</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link white" routerLink="/electronics">Electronics</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link white" routerLink="/men's clothing">Clothes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link white" routerLink="/women's clothing">Sarees</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link white" routerLink="/jewelery">Others</a>
+        </li>
+      </ul>
+    </div>
+    <div class="nav-bar">
+      <ul class="nav-right">
+        <li class="nav-item cart flex">
+          <span class="nav-link white" style="transition: 0.5s;">
+            <span class="count white ml-2" *ngIf="TotalAddedtoCart.length >= 1">
+            <div class="Counter">
+              <span>{{TotalAddedtoCart.length}}</span>
+            </div>
+            </span>
+          </span>
+        </li>
+        <li class="nav-item flex">
+            <div class="profile">
+              <div class="user" style="color: #fff; cursor: default;">
+                <h4>Katherine Cooper</h4>
+                <p>@probablykat66</p>
+              </div>
+              <div class="img-box" (click)="toggleActive()">
+                <i class="fa fa-user" style="color: #000;font-size: 18px;"></i>
+              </div>
+            </div>
+            <div class="menu" [ngClass]="{'active': isActive}">
+              <ul>
+                <li>
+                    <a routerLink="/profile"><i class="fa fa-user"></i>&nbsp;Profile</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" (click)="ShoppingCartToggle($event); isActive = false">
+                      <i class="fa-solid fa-cart-shopping"></i>&nbsp;Cart Items - {{TotalAddedtoCart.length}}
+                    </a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)"><i class="fa fa-sign-out"></i>&nbsp;Sign Out</a>
+                </li>
+              </ul>
+            </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+<div class="sidebar-slider" [class.sidebar-slide-in]="isSubMenuOpen">
+  <div class="sidebar-close">
+      <span (click)="ShoppingCartToggle($event); isActive = false">
+          <i class="fa fa-times"></i>
+      </span>
+  </div>
+  <div class="header">
+    <h5>Add to Cart - Items</h5>
+  </div>
+
+  <div class="master-container">
+
+    <div class="card cart" *ngFor="let item of TotalAddedtoCart; let i = index;">
+      <!-- <label class="title">Your cart</label> -->
+      <div class="products">
+        <div class="cross">
+          <i class="fa fa-times" style="cursor: pointer;" (click)="removeEle(item, i)"></i>
+        </div>
+        <div class="product">
+          <img class="img-src" src="{{item?.image}}"/>
+          <div class="cart-name">
+            <span class="product">{{ item?.title.length > 20 ? item?.title.substring(0,20)+"..." : item?.title }}</span>
+          </div>
+          <div class="quantity">
+            <button (click)="minus(i,item);" [disabled]="item?.count == 1">
+              <svg fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" stroke="#47484b" d="M20 12L4 12"></path>
+              </svg>
+            </button>
+            <label>{{item.count}}</label>
+            <button (click)="plus(i,item)" [disabled]="item?.count == 5">
+              <svg fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" stroke="#47484b" d="M12 4V20M20 12H4"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="price-Tag">
+            <label class="price small">₹{{item?.price | number: '1.0-0'}}/-</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card coupons" *ngIf="TotalAddedtoCart?.length !== 0 && this.FinalPrice >= 1000">
+      <label class="title">Apply coupons</label>
+      <form class="form">
+          <input type="text" placeholder="Apply your coupons here" class="input_field" [(ngModel)]="CouponInput" name="CouponValue">
+          <button type="button" class="btn btn-primary" style="font-size: 14px; color:#fff"
+          (click)="CouponCode()" [disabled]="!CouponInput">Apply</button>
+      </form>
+    </div>
+
+    <div class="card checkout" *ngIf="TotalAddedtoCart.length !== 0">
+      <label class="title">Checkout</label>
+      <div class="details">
+        <span>Your cart subtotal:</span>
+        <span>₹{{TotalCost}}/-</span>
+        <span>Discount through applied coupons:</span>
+        <span style="color: green; font-weight: 800;">(-) ₹{{couponValue}}/-</span>
+        <span>Shipping fees:</span>
+        <span>₹{{ShippingCharges}}/-</span>
+      </div>
+      <div class="checkout--footer">
+        <label class="price">₹{{FinalPrice}}/-</label>
+        <!-- <button class="checkout-btn">Checkout</button> -->
+        <button class="btn btn-primary" style="font-size: 14px; color:#fff"
+        (click)="Pay()">Pay Now</button>
+      </div>
+    </div>
+
+    <div class="noItemonCart" *ngIf="TotalAddedtoCart.length == 0">
+      <div class="empty-cart">
+        <img class="noItem" src="../../../assets/images/Empty Cart.png" alt="emptycart"/>
+      </div>
+      <div class="content" style="margin: 1.5rem 2.5rem;">
+        <h6><i>No Items in the Cart, Please add some Products</i></h6>
+      </div>
+    </div>
+
+  </div>
+</div>

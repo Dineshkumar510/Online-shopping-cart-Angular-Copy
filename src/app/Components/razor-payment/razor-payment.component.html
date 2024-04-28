@@ -1,0 +1,153 @@
+<div class='container'>
+  <div class="row" *ngIf="finalPrice !== null">
+      <div class="col-md-12">
+        <div class='window'>
+          <div class='order-info'>
+            <div class='order-info-content'>
+              <h2>Order Summary</h2>
+                <div class='line'></div>
+
+                <div class="data">
+                  <table class='order-table'>
+                    <tbody>
+                      <tr  *ngFor="let item of TotalAddedtoCart; let i = index;" style="border-bottom: 1px solid #e9e9e9;">
+                        <td>
+                          <div class="img" style="width: 100px;
+                          height: fit-content;
+                          border: 1px solid #545454;
+                          padding: 10px;
+                          border-radius: 8px;">
+                            <img src="{{item?.image}}" class='full-width'>
+                          </div>
+                        </td>
+                        <td>
+                          <span class='thin' style="font-size: 13px; display: block">
+                            <b>{{ item?.title.length > 35 ? item?.title.substring(0,35) + " ...." : item?.title }}</b>
+                          </span>
+                          <span class='thin small'> Category: <b>{{item.category}}</b><br></span>
+                          <span class='thin small'> Quantity: <b>{{item.count}}</b></span>&nbsp;&nbsp;
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+
+                <div class='line'></div>
+              <div class='total'>
+                <span style='float:left'>
+                  Total Price
+                </span>
+                <span style='float:right; text-align:right; font-weight: bold;'>
+                  ₹{{finalPrice}}/-
+                </span>
+              </div>
+
+            </div>
+            </div>
+              <div class='credit-info'>
+                <div class='credit-info-content'>
+                  <img src='https://dl.dropboxusercontent.com/s/ubamyu6mzov5c80/visa_logo%20%281%29.png' height='80' class='credit-card-image' id='credit-card-image'>
+                  Card Number
+                  <input class='input-field'>
+                  Card Holder
+                  <input class='input-field'>
+                  <table class='half-input-table'>
+                    <tr>
+                      <td> Expires
+                        <input class='input-field'>
+                      </td>
+                      <td>CVC
+                        <input class='input-field'>
+                      </td>
+                    </tr>
+                  </table>
+                  <button class='pay-btn'(click)="PaymentMethod()">Other Preferred Payment Methods</button>
+
+                </div>
+
+              </div>
+        </div>
+      </div>
+  </div>
+
+    <div class="row" *ngIf="finalPrice == null">
+      <div class="col-md-12">
+          <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+          </svg>
+
+          <div class="main-heading Main-Data">
+            <h3>Congratulations, Order has been Placed</h3>
+          </div>
+      </div>
+      <div class="sub-data Main-Data mt-4">
+        <button class="btn btn-primary" (click)="Redirect()"><i class="fa fa-home"></i> Go Home</button>
+      </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="container">
+
+    <div class="row" *ngIf="finalPrice > 0">
+        <div class="col-md-12">
+            <div class="Main-Data">
+                <h5>The total cost of the Items is <b>₹{{finalPrice}}/-</b>,
+                  Please <a href="javascript:void(0)" (click)="PaymentMethod()">Click here</a> to Proceed</h5>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row" *ngIf="finalPrice < 0">
+      <div class="col-md-12">
+          <div class="Main-Data">
+              <div class="main-heading">
+                <h2>Congratulations, Payment was Successfull & Your order has been placed</h2>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-12">
+        <div class="sub-data Main-Data">
+          <span>Now, you can redirect to <a href="javascript:void(0)" (click)="Redirect()">Main Page</a></span>
+        </div>
+      </div>
+  </div>
+
+</div> -->
+
